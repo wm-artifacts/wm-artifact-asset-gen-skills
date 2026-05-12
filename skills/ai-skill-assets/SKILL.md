@@ -33,21 +33,13 @@ If either is missing, ask before going further.
 
 ### Auto-extracting from a Skill Source
 
-If the user provides a **local path** or **GitHub URL** to their skill instead of typing out the details, extract the name and description directly — do not ask the user to retype what is already in their `SKILL.md`.
+If the user provides a **local path** or **GitHub URL** to their skill, follow the resolution order in [BRANDING.md → Resolving an Artifact Source](../../BRANDING.md#resolving-an-artifact-source-path-or-github-url). Then extract:
 
-- **Local path** (e.g. `~/projects/my-skill`, `./skills/create-guide/`, or a direct path to `SKILL.md`):
-  - Read `SKILL.md` (or `skill.md`, `Skill.md`) from the path.
-  - Parse the YAML frontmatter for `name` and `description`.
-- **GitHub URL** (e.g. `https://github.com/org/repo`, `https://github.com/org/repo/tree/main/skills/create-guide`, or a direct file URL):
-  - Prefer the `gh` CLI when available: `gh api repos/{owner}/{repo}/contents/{path}` to fetch the SKILL.md.
-  - Otherwise fetch the raw file (`https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}/SKILL.md`).
-  - Parse the YAML frontmatter for `name` and `description`.
+- `name` and `description` from the YAML frontmatter of `SKILL.md` (or `skill.md`, `Skill.md`).
+- Additional context from the README at the skill folder and at the repo root, if present. Skim for what the skill produces, example inputs/outputs, target audience, capability highlights — sharpens illustration, tagline, and pill suggestions.
+- Any existing branding artwork in `assets/`, `branding/`, or referenced from the README. If found, treat as the canonical reference family.
 
-**Read the README(s) for additional context.** Beyond the SKILL.md frontmatter, look for a `README.md` (or `Readme.md`, `readme.md`) at the **skill folder** and at the **repository root**, if both exist. READMEs often contain richer context — what the skill produces, example inputs/outputs, target audience, capability highlights — which sharpens the illustration concept, tagline, and capability-pill suggestions. Skim, don't memorize.
-
-After extracting, **confirm with the user** in one short message: "I read your skill — name is **{name}**, description is **{description}**. Proceed with these, or anything to adjust?" If the SKILL.md is missing or the frontmatter is incomplete, fall back to asking the user directly.
-
-Also scan the skill source for **existing branding assets** (icon / banner / thumbnail in an `assets/` or `branding/` folder, or referenced from the README). If found, treat them as the canonical reference family and ask whether the user wants to refresh them or generate from scratch.
+After extracting, **confirm with the user** in one short message: "I read your skill — name is **{name}**, description is **{description}**. Proceed, or anything to adjust?" If the SKILL.md is missing or frontmatter is incomplete, fall back to asking directly.
 
 **Optional (use whatever the user offers):**
 
@@ -73,6 +65,7 @@ All three share one illustration concept and the same accent direction.
 
 This is an **interactive process**. Do not silently generate.
 
+0. **Preflight check** — run [BRANDING.md → Preflight](../../BRANDING.md#preflight-check) first. Verify `node`, `npm`, and `git` are available. If any are missing, stop and ask the user to install them. Do not proceed until all three are confirmed.
 1. **Confirm essentials.** Verify the skill **name** and **description**. If the user supplied a local path or GitHub URL to the skill, use **Auto-extracting from a Skill Source** above to read the frontmatter and confirm back. Otherwise ask for whichever is missing.
 2. **Acknowledge user direction.** If the user gave explicit composition instructions or reference assets, base the proposal on those. If they gave assets without instructions, run **Handling User-Provided Assets** first.
 3. **Propose a composition** drawing on the name, description, and any references:

@@ -34,18 +34,13 @@ If the name or description is missing, ask before going further.
 
 ### Auto-extracting from a Connector Source
 
-If the user provides a **local path** or **GitHub URL** to their connector instead of typing out the details, extract the name and description directly — do not ask the user to retype what is already in their connector manifest or README.
+If the user provides a **local path** or **GitHub URL** to their connector, follow the resolution order in [BRANDING.md → Resolving an Artifact Source](../../BRANDING.md#resolving-an-artifact-source-path-or-github-url). Then extract:
 
-- **Local path** (e.g. `~/projects/my-connector`, `./connectors/rabbitmq/`):
-  - Look for a manifest file: `connector.json`, `package.json`, `wm-connector.json`, or similar. Read `name` and `description` fields.
-  - Scan for an existing logo file in `assets/`, `branding/`, `logo/`, or similar — if found, propose it for use.
-- **GitHub URL** (e.g. `https://github.com/org/repo`):
-  - Prefer the `gh` CLI when available: `gh api repos/{owner}/{repo}` to read the repo description; `gh api repos/{owner}/{repo}/contents/{path}` for any manifest file.
-  - Check repo metadata for a vendor name and short description.
+- `name` and `description` from a manifest file (`connector.json`, `package.json`, `wm-connector.json`, or similar). If no manifest, use the README's first heading and intro paragraph.
+- Additional context from the README at the connector folder and at the repo root — supported operations, auth options, example usage. Sharpens thumbnail tint and confirms vendor identity.
+- Any existing logo file in `assets/`, `branding/`, `logo/`. If found, propose it for use.
 
-**Read the README(s) for additional context.** Beyond the manifest, look for a `README.md` (or `Readme.md`, `readme.md`) at the **connector folder** and at the **repository root**, if both exist. READMEs typically describe what the connector does, supported operations, authentication options, and example usage — which sharpens the thumbnail tint choice and confirms the vendor identity. Skim, don't memorize. Locally via Read; on GitHub via `gh api repos/{owner}/{repo}/readme` or `https://raw.githubusercontent.com/{owner}/{repo}/{branch}/README.md`.
-
-After extracting, **confirm with the user** in one short message: "I read your connector — name is **{name}**, description is **{description}**. Proceed with these, or anything to adjust?" If the source has no manifest / unclear README, fall back to asking the user directly.
+After extracting, **confirm with the user** in one short message: "I read your connector — name is **{name}**, description is **{description}**. Proceed, or anything to adjust?" If the source is unclear, fall back to asking directly.
 
 ### Sourcing the Vendor Logo
 
@@ -82,6 +77,7 @@ All three preserve the vendor's official brand color. None of the three carry te
 
 This is an **interactive process**. Do not silently generate.
 
+0. **Preflight check** — run [BRANDING.md → Preflight](../../BRANDING.md#preflight-check) first. Verify `node`, `npm`, and `git` are available. If any are missing, stop and ask the user to install them. Do not proceed until all three are confirmed.
 1. **Confirm essentials.** Verify the connector **name** and **description**. If the user supplied a local path or GitHub URL, use **Auto-extracting from a Connector Source** above to read the manifest / README and confirm back. Then resolve the **vendor logo** using **Sourcing the Vendor Logo** below — ask the user, offer to fetch if needed, fall back to asking again. Do not proceed without a usable logo.
 2. **Confirm vendor brand color.** Either pick it from the logo, or ask the user. This determines the thumbnail gradient tint.
 3. **Acknowledge user direction.** If the user gave reference assets, base the proposal on those. If they gave assets without instructions, run **Handling User-Provided Assets** first.

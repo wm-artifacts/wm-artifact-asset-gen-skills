@@ -12,6 +12,20 @@ This repository provides:
 - **One skill per artifact type** under [skills/](skills/) — interactive workflow for collecting inputs, proposing a composition, and generating the assets.
 - **A per-skill design spec** (`DESIGN.md`) — type-specific composition rules (e.g. AI Skill banners are hero compositions with text + illustration; Connector banners are connection diagrams with the vendor logo and the WaveMaker mark).
 
+## Prerequisites
+
+These tools must be installed on the machine where the skill runs. The skill performs a preflight check at the start of every run and will stop if anything is missing.
+
+| Tool             | Why                                                                     | Check            |
+| ---------------- | ----------------------------------------------------------------------- | ---------------- |
+| **Node.js** ≥ 18 | Runs the render script that produces PNGs from HTML/SVG                 | `node --version` |
+| **npm**          | Installs Playwright into the per-job `build/` folder                    | `npm --version`  |
+| **git**          | Clones the user's skill/connector source when they provide a GitHub URL | `git --version`  |
+
+The skill will install **Playwright + Chromium** on first run via `npm install` and `npx playwright install chromium` (~100 MB download, cached for subsequent runs). You do not need to install Playwright manually.
+
+Internet access is required on first run (for the Chromium download and Google Fonts) and whenever a GitHub URL is given as input.
+
 ## Artifact Types
 
 | Artifact Type      | Skill                                        | Status      |
@@ -30,6 +44,7 @@ wm-artifact-asset-gen/
 ├── README.md
 ├── BRANDING.md                     ← global WaveMaker Marketplace brand reference
 ├── assets/
+│   ├── marketplace-logo.png        ← purple "M" marketplace mark (used in all lockups)
 │   └── wm-logo.svg                 ← WaveMaker wave mark (used in Connector banners)
 └── skills/
     ├── ai-skill-assets/
