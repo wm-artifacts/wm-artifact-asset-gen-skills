@@ -13,6 +13,16 @@ Use this skill when a user needs to prepare a WaveMaker **AI Skill** artifact fo
 - The user asks to generate, refresh, or validate listing assets for an AI Skill.
 - The user wants brand-compliance feedback on existing AI Skill assets.
 
+## How Assets Are Generated
+
+Assets are produced by writing **HTML + SVG source files** and rendering them to PNG via **Playwright + Chromium** (a headless browser). This is the prescribed approach for every run, regardless of model capability.
+
+**Do not use native image generation** (DALL-E, Imagen, Stable Diffusion, or any diffusion / multimodal image-output model). Those tools cannot place text at an exact pixel position, cannot guarantee brand hex colors, and cannot load WaveMaker's web fonts (DM Sans, Inter from Google Fonts). The result would look nothing like the exemplars.
+
+**Do not devise an alternative rendering strategy.** Do not probe for ImageMagick, rsvg-convert, system Chrome, or any other tool. Do not ask the user which renderer they prefer. The toolchain is fixed: HTML/SVG → Playwright → PNG.
+
+The full setup procedure is in [BRANDING.md → Rendering Toolchain](BRANDING.md#rendering-toolchain).
+
 ## Design References
 
 Two documents own the visual rules. Read both before proposing or generating anything.

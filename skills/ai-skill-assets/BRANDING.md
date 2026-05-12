@@ -12,22 +12,22 @@ Clean, modern, developer-friendly. Light cool backgrounds, purple/indigo brand a
 
 Use these tokens for every WaveMaker-branded element. Third-party brand colors (e.g. RabbitMQ orange, AWS red, Microsoft blue) are **preserved** in their respective artifact assets — do not recolor a vendor logo to fit the WaveMaker palette.
 
-| Role                 | Hex       | Notes                                                |
-| -------------------- | --------- | ---------------------------------------------------- |
-| Primary purple       | `#B072EA` | Marketplace primary brand color                      |
-| Indigo               | `#6366F1` | Secondary primary, "AI SKILL" pill base              |
-| Purple-blue hover    | `#725CF7` | Hover / pressed accents                              |
-| Wizard purple        | `#656DF9` | Decorative purple-blue (badges, sparkles, AI accent) |
+| Role                 | Hex       | Notes                                                                      |
+| -------------------- | --------- | -------------------------------------------------------------------------- |
+| Primary purple       | `#B072EA` | Marketplace primary brand color                                            |
+| Indigo               | `#6366F1` | Secondary primary, "AI SKILL" pill base                                    |
+| Purple-blue hover    | `#725CF7` | Hover / pressed accents                                                    |
+| Wizard purple        | `#656DF9` | Decorative purple-blue (badges, sparkles, AI accent)                       |
 | CTA orange           | `#FF7B00` | Token in the CSS; used only where the marketplace itself shows orange CTAs |
-| Page background      | `#F1F3F6` | Canvas / page surface                                |
-| Grey background      | `#F2F4F5` | Section / panel surface                              |
-| Highlight background | `#E9EDF1` | Subtle highlight strips                              |
-| Card / white         | `#FFFFFF` | Cards and surfaces                                   |
-| Heading              | `#000000` | Headlines                                            |
-| Body text            | `#0D0D17` | Body / paragraph                                     |
-| Muted text           | `#616161` | Captions, secondary copy                             |
-| Cool muted           | `#68778A` | Sub-labels, taglines                                 |
-| Separator            | `#E2E3E4` | Borders, dividers                                    |
+| Page background      | `#F1F3F6` | Canvas / page surface                                                      |
+| Grey background      | `#F2F4F5` | Section / panel surface                                                    |
+| Highlight background | `#E9EDF1` | Subtle highlight strips                                                    |
+| Card / white         | `#FFFFFF` | Cards and surfaces                                                         |
+| Heading              | `#000000` | Headlines                                                                  |
+| Body text            | `#0D0D17` | Body / paragraph                                                           |
+| Muted text           | `#616161` | Captions, secondary copy                                                   |
+| Cool muted           | `#68778A` | Sub-labels, taglines                                                       |
+| Separator            | `#E2E3E4` | Borders, dividers                                                          |
 
 **Tinting rule.** Neutrals lean cool. Never warm gray, beige, or warm brown except where a third-party brand color requires it.
 
@@ -139,6 +139,8 @@ The preflight does **not** check Playwright / Chromium — those are auto-instal
 ## Rendering Toolchain
 
 Generated assets are produced from HTML/SVG sources rendered to PNG via **Playwright + Chromium** — chosen because it renders Google web fonts (DM Sans, Inter) deterministically and handles SVG without rasterizer quirks.
+
+This approach is **mandatory regardless of the model's own capabilities**. Even if the model has access to a native image generation API (DALL-E, Imagen, Stable Diffusion, or similar), those tools must not be used — they cannot guarantee pixel-accurate positioning, exact hex colors, or correct web-font rendering. The HTML/SVG → Playwright → PNG pipeline is the only approach that produces brand-consistent, marketplace-ready output.
 
 **Do not probe** for `rsvg-convert`, `magick`, `convert`, `chromium`, system Chrome, or other rasterizers. They either skip web fonts or produce inconsistent output. Skip the probing entirely.
 

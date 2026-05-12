@@ -13,6 +13,16 @@ Use this skill when a user needs to prepare a WaveMaker **Connector** artifact f
 - The user asks to generate, refresh, or validate listing assets for a Connector.
 - The user wants brand-compliance feedback on existing Connector assets.
 
+## How Assets Are Generated
+
+Assets are produced by writing **HTML + SVG source files** and rendering them to PNG via **Playwright + Chromium** (a headless browser). This is the prescribed approach for every run, regardless of model capability.
+
+**Do not use native image generation** (DALL-E, Imagen, Stable Diffusion, or any diffusion / multimodal image-output model). Those tools cannot place logos at exact positions, cannot guarantee brand hex colors, and cannot render vendor logos faithfully. The result would look nothing like the marketplace's actual connector tiles.
+
+**Do not devise an alternative rendering strategy.** Do not probe for ImageMagick, rsvg-convert, system Chrome, or any other tool. Do not ask the user which renderer they prefer. The toolchain is fixed: HTML/SVG → Playwright → PNG.
+
+The full setup procedure is in [BRANDING.md → Rendering Toolchain](BRANDING.md#rendering-toolchain).
+
 ## Design References
 
 Two documents own the visual rules. Read both before proposing or generating anything.
