@@ -32,6 +32,21 @@ These two documents are self-sufficient — generate from them directly. Only re
 
 If the name or description is missing, ask before going further.
 
+### Auto-extracting from a Connector Source
+
+If the user provides a **local path** or **GitHub URL** to their connector instead of typing out the details, extract the name and description directly — do not ask the user to retype what is already in their connector manifest or README.
+
+- **Local path** (e.g. `~/projects/my-connector`, `./connectors/rabbitmq/`):
+  - Look for a manifest file: `connector.json`, `package.json`, `wm-connector.json`, or similar. Read `name` and `description` fields.
+  - Scan for an existing logo file in `assets/`, `branding/`, `logo/`, or similar — if found, propose it for use.
+- **GitHub URL** (e.g. `https://github.com/org/repo`):
+  - Prefer the `gh` CLI when available: `gh api repos/{owner}/{repo}` to read the repo description; `gh api repos/{owner}/{repo}/contents/{path}` for any manifest file.
+  - Check repo metadata for a vendor name and short description.
+
+**Read the README(s) for additional context.** Beyond the manifest, look for a `README.md` (or `Readme.md`, `readme.md`) at the **connector folder** and at the **repository root**, if both exist. READMEs typically describe what the connector does, supported operations, authentication options, and example usage — which sharpens the thumbnail tint choice and confirms the vendor identity. Skim, don't memorize. Locally via Read; on GitHub via `gh api repos/{owner}/{repo}/readme` or `https://raw.githubusercontent.com/{owner}/{repo}/{branch}/README.md`.
+
+After extracting, **confirm with the user** in one short message: "I read your connector — name is **{name}**, description is **{description}**. Proceed with these, or anything to adjust?" If the source has no manifest / unclear README, fall back to asking the user directly.
+
 ### Sourcing the Vendor Logo
 
 The vendor's official logo is the centerpiece of all three assets, so this step is critical.
@@ -67,7 +82,7 @@ All three preserve the vendor's official brand color. None of the three carry te
 
 This is an **interactive process**. Do not silently generate.
 
-1. **Confirm essentials.** Verify the connector **name** and **description**. Then resolve the **vendor logo** using **Sourcing the Vendor Logo** above — ask the user, offer to fetch if needed, fall back to asking again. Do not proceed without a usable logo.
+1. **Confirm essentials.** Verify the connector **name** and **description**. If the user supplied a local path or GitHub URL, use **Auto-extracting from a Connector Source** above to read the manifest / README and confirm back. Then resolve the **vendor logo** using **Sourcing the Vendor Logo** below — ask the user, offer to fetch if needed, fall back to asking again. Do not proceed without a usable logo.
 2. **Confirm vendor brand color.** Either pick it from the logo, or ask the user. This determines the thumbnail gradient tint.
 3. **Acknowledge user direction.** If the user gave reference assets, base the proposal on those. If they gave assets without instructions, run **Handling User-Provided Assets** first.
 4. **Propose the look** in one short message:
