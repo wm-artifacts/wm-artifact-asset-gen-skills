@@ -17,7 +17,7 @@ Use this skill when a user needs to prepare a WaveMaker **Connector** artifact f
 
 Two documents own the visual rules. Read both before proposing or generating anything.
 
-- [BRANDING.md](../../BRANDING.md) — global WaveMaker Marketplace brand: palette, typography, tone, wordmark, asset dimensions, and "what NOT to do."
+- [BRANDING.md](BRANDING.md) — global WaveMaker Marketplace brand: palette, typography, tone, wordmark, asset dimensions, and "what NOT to do."
 - [DESIGN.md](DESIGN.md) — Connector-specific composition for the three assets, including the connection-diagram banner pattern, branded-tile thumbnail pattern, and third-party brand-mark rules.
 
 These two documents are self-sufficient — generate from them directly. Only refer to the live marketplace at <https://marketplace.wavemaker.ai/home> if a user reports that something here looks stale or off-brand.
@@ -34,7 +34,7 @@ If the name or description is missing, ask before going further.
 
 ### Auto-extracting from a Connector Source
 
-If the user provides a **local path** or **GitHub URL** to their connector, follow the resolution order in [BRANDING.md → Resolving an Artifact Source](../../BRANDING.md#resolving-an-artifact-source-path-or-github-url). Then extract:
+If the user provides a **local path** or **GitHub URL** to their connector, follow the resolution order in [BRANDING.md → Resolving an Artifact Source](BRANDING.md#resolving-an-artifact-source-path-or-github-url). Then extract:
 
 - `name` and `description` from a manifest file (`connector.json`, `package.json`, `wm-connector.json`, or similar). If no manifest, use the README's first heading and intro paragraph.
 - Additional context from the README at the connector folder and at the repo root — supported operations, auth options, example usage. Sharpens thumbnail tint and confirms vendor identity.
@@ -63,7 +63,7 @@ If the user provides assets without explicit instructions, run **Handling User-P
 
 ## Required Assets
 
-Three assets per listing. Dimensions, palette, and typography are **locked** (see [BRANDING.md](../../BRANDING.md) and [DESIGN.md](DESIGN.md)). The vendor's logo and brand color drive the look — composition is consistent across all connectors.
+Three assets per listing. Dimensions, palette, and typography are **locked** (see [BRANDING.md](BRANDING.md) and [DESIGN.md](DESIGN.md)). The vendor's logo and brand color drive the look — composition is consistent across all connectors.
 
 | Asset     | Dimensions | Aspect | Where it appears                                        |
 | --------- | ---------- | ------ | ------------------------------------------------------- |
@@ -77,7 +77,7 @@ All three preserve the vendor's official brand color. None of the three carry te
 
 This is an **interactive process**. Do not silently generate.
 
-0. **Preflight check** — run [BRANDING.md → Preflight](../../BRANDING.md#preflight-check) first. Verify `node`, `npm`, and `git` are available. If any are missing, stop and ask the user to install them. Do not proceed until all three are confirmed.
+0. **Preflight check** — run [BRANDING.md → Preflight](BRANDING.md#preflight-check) first. Verify `node`, `npm`, and `git` are available. If any are missing, stop and ask the user to install them. Do not proceed until all three are confirmed.
 1. **Confirm essentials.** Verify the connector **name** and **description**. If the user supplied a local path or GitHub URL, use **Auto-extracting from a Connector Source** above to read the manifest / README and confirm back. Then resolve the **vendor logo** using **Sourcing the Vendor Logo** below — ask the user, offer to fetch if needed, fall back to asking again. Do not proceed without a usable logo.
 2. **Confirm vendor brand color.** Either pick it from the logo, or ask the user. This determines the thumbnail gradient tint.
 3. **Acknowledge user direction.** If the user gave reference assets, base the proposal on those. If they gave assets without instructions, run **Handling User-Provided Assets** first.

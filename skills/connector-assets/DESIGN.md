@@ -1,6 +1,6 @@
 # Connector Assets — Visual Design
 
-Type-specific composition rules for Connector listing assets. Read [BRANDING.md](../../BRANDING.md) first — it covers palette, typography, tone, wordmark, dimensions, and global "what NOT to do."
+Type-specific composition rules for Connector listing assets. Read [BRANDING.md](BRANDING.md) first — it covers palette, typography, tone, wordmark, dimensions, and global "what NOT to do."
 
 ## Where Each Asset Appears
 
@@ -35,7 +35,7 @@ The "connection diagram" pattern.
 - **Layout**: a single horizontal row, vertically centered, with three elements:
   - **Left circle** — white surface, subtle border / soft shadow. Contains the vendor's logo.
   - **Dashed arrow(s)** between the circles — light gray (`#68778A` at ~40% opacity), 2–3 parallel dashed arrows, pointing left → right, suggesting data flow. Use a clear arrowhead at the right end.
-  - **Right circle** — white surface, subtle border / soft shadow. Contains the **WaveMaker wave mark** ([`assets/wm-logo.svg`](../../assets/wm-logo.svg)).
+  - **Right circle** — white surface, subtle border / soft shadow. Contains the **WaveMaker wave mark** ([`assets/wm-logo.svg`](assets/wm-logo.svg)).
 - The two circles sit roughly 40% / 60% horizontally to leave the **bottom-left ~25% quiet** for the icon overlay on the detail page.
 - **No text on the banner.** The detail page renders the connector name and description in the UI below.
 
@@ -46,7 +46,7 @@ The two circles in the banner are visually paired. They **must look identical** 
 - **Circle diameter:** **300px**, identical for both sides. Same stroke, same shadow, same fill (`#FFFFFF`).
 - **Vertical alignment:** both circles share a single horizontal center line.
 - **Logo sizing inside each circle:** target an **optical visual size of ~55% of the circle diameter** (~165px wide for a 300px circle), measured by the logo's **visible bounding box** — not by the SVG `width` / `height` attributes.
-- The repo's [`assets/wm-logo.svg`](../../assets/wm-logo.svg) ships with `width="32" height="32"`. **Do not use those dimensions.** Render it at the visible-bounding-box size (~165px) so it matches the vendor logo opposite it.
+- The repo's [`assets/wm-logo.svg`](assets/wm-logo.svg) ships with `width="32" height="32"`. **Do not use those dimensions.** Render it at the visible-bounding-box size (~165px) so it matches the vendor logo opposite it.
 - If the vendor logo is wider than it is tall (e.g. Jaspersoft wordmark), fit it to ~75% of the circle width but keep the WaveMaker wave at the same **height** as the vendor wordmark's cap height. The pair must read as "equal weight" — never with one logo dominating.
 - Use a consistent letterboxing rule: scale the logo to the larger of (height / width) such that the smaller dimension hits the target. Center it both ways inside the circle.
 

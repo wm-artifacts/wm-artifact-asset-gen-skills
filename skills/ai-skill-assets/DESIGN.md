@@ -1,6 +1,6 @@
 # AI Skill Assets — Visual Design
 
-Type-specific composition rules for AI Skill listing assets. Read [BRANDING.md](../../BRANDING.md) first — it covers palette, typography, tone, wordmark, dimensions, and global "what NOT to do."
+Type-specific composition rules for AI Skill listing assets. Read [BRANDING.md](BRANDING.md) first — it covers palette, typography, tone, wordmark, dimensions, and global "what NOT to do."
 
 ## Where Each Asset Appears
 

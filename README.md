@@ -26,6 +26,43 @@ The skill will install **Playwright + Chromium** on first run via `npm install` 
 
 Internet access is required on first run (for the Chromium download and Google Fonts) and whenever a GitHub URL is given as input.
 
+## Installation
+
+These skills are distributed via the [`skills`](https://www.npmjs.com/package/skills) CLI. If you don't have it yet:
+
+```bash
+npm install -g skills
+```
+
+### Install globally for every agent
+
+This is the recommended one-liner — installs **all** skills in this repo to **every** detected agent (Claude Code, Cursor, Codex, etc.) at the global path `~/.agents/skills/`:
+
+```bash
+skills add wm-artifacts/wm-artifact-asset-gen -g --all
+```
+
+Flags:
+
+- `-g` — global install (`~/.agents/skills/`) rather than project-local.
+- `--all` — shorthand for `--skill '*' --agent '*' -y` (every skill, every agent, no prompts).
+
+### Install just one skill
+
+```bash
+skills add wm-artifacts/wm-artifact-asset-gen -g --skill ai-skill-assets --agent '*'
+```
+
+### Update / remove
+
+```bash
+skills update -g                                                           # update all global skills to latest
+skills list -g                                                             # see what's installed
+skills remove -g --skill 'ai-skill-assets,connector-assets'                # remove these two
+```
+
+After installing, you can invoke a skill from any agent that supports the SKILL format — e.g. in Claude Code, type `/ai-skill-assets` or `/connector-assets`.
+
 ## Artifact Types
 
 | Artifact Type      | Skill                                        | Status      |
@@ -42,22 +79,53 @@ Internet access is required on first run (for the Chromium download and Google F
 ```text
 wm-artifact-asset-gen/
 ├── README.md
-├── BRANDING.md                     ← global WaveMaker Marketplace brand reference
-├── assets/
-│   ├── marketplace-logo.png        ← purple "M" marketplace mark (used in all lockups)
-│   └── wm-logo.svg                 ← WaveMaker wave mark (used in Connector banners)
+├── BRANDING.md                     ← canonical WaveMaker Marketplace brand reference
+├── assets/                         ← canonical shared assets
+│   ├── marketplace-logo.png
+│   └── wm-logo.svg
+├── bin/
+│   └── sync.sh                     ← propagate root BRANDING.md + assets into each skill
 └── skills/
-    ├── ai-skill-assets/
-    │   ├── SKILL.md                ← when to use, workflow, handling user inputs
-    │   ├── DESIGN.md               ← AI-Skill-specific composition rules
-    │   └── assets/reference/       ← canonical exemplar set (Guide Doc Creator)
-    │       ├── guide-doc-creator-icon.png
-    │       ├── guide-doc-creator-banner.png
-    │       └── guide-doc-creator-thumbnail.png
-    └── connector-assets/
-        ├── SKILL.md                ← when to use, workflow, handling user inputs
-        └── DESIGN.md               ← Connector-specific composition rules
+    ├── ai-skill-assets/            ← self-contained skill, ready to install
+    │   ├── SKILL.md
+    │   ├── DESIGN.md
+    │   ├── BRANDING.md             (synced from root)
+    │   └── assets/
+    │       ├── marketplace-logo.png    (synced from root)
+    │       └── reference/              ← canonical exemplar set (Guide Doc Creator)
+    │           ├── guide-doc-creator-icon.png
+    │           ├── guide-doc-creator-banner.png
+    │           └── guide-doc-creator-thumbnail.png
+    └── connector-assets/           ← self-contained skill, ready to install
+        ├── SKILL.md
+        ├── DESIGN.md
+        ├── BRANDING.md             (synced from root)
+        └── assets/
+            ├── marketplace-logo.png    (synced from root)
+            └── wm-logo.svg             (synced from root)
 ```
+
+### Why each skill carries its own copy
+
+The SKILLS CLI installs each `skills/<name>/` directory as a standalone unit at `~/.agents/skills/<name>/`. Cross-references to a parent repo (`../../BRANDING.md`) would break on install. To keep each installed skill self-contained, `BRANDING.md` and the shared `assets/` live inside every skill folder. The repo root holds the **canonical** version; `bin/sync.sh` copies it into each skill folder.
+
+### Editing brand or shared assets
+
+1. Edit the canonical file at the repo root (`BRANDING.md`, `assets/marketplace-logo.png`, etc.).
+2. Run `./bin/sync.sh` to propagate to every skill folder.
+3. Reinstall the affected skills via your SKILLS CLI to push the updated files to `~/.agents/skills/`.
+
+Never edit the per-skill copies directly — they will be overwritten on the next sync.
+
+### Adding a new skill
+
+When you add a new skill under `skills/`, also **register it in `bin/sync.sh`**:
+
+1. Append the new path (e.g. `"skills/prefab-assets"`) to the `ALL_SKILLS` array in `bin/sync.sh`. This gives the new skill its own copy of `BRANDING.md` and `assets/marketplace-logo.png` on every sync.
+2. If the new skill needs the WaveMaker wave mark (the blue/teal logo used in Connector-style banners), also append the path to `SKILLS_NEEDING_WAVE_MARK`.
+3. Run `./bin/sync.sh` once to populate the new skill's folder. From then on, the skill is included in every sync automatically.
+
+Skipping this step means the new skill ships without `BRANDING.md` and shared assets, and its `BRANDING.md` references in `SKILL.md` / `DESIGN.md` will break at runtime.
 
 ## Source of Truth
 

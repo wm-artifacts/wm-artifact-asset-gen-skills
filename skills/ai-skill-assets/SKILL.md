@@ -17,7 +17,7 @@ Use this skill when a user needs to prepare a WaveMaker **AI Skill** artifact fo
 
 Two documents own the visual rules. Read both before proposing or generating anything.
 
-- [BRANDING.md](../../BRANDING.md) — global WaveMaker Marketplace brand: palette, typography, tone, wordmark, asset dimensions, and "what NOT to do."
+- [BRANDING.md](BRANDING.md) — global WaveMaker Marketplace brand: palette, typography, tone, wordmark, asset dimensions, and "what NOT to do."
 - [DESIGN.md](DESIGN.md) — AI-Skill-specific composition for the three assets (icon, banner, thumbnail), including illustration style, layout, and exemplars.
 
 These two documents are self-sufficient — generate from them directly. Only refer to the live marketplace at <https://marketplace.wavemaker.ai/home> if a user reports that something here looks stale or off-brand.
@@ -33,7 +33,7 @@ If either is missing, ask before going further.
 
 ### Auto-extracting from a Skill Source
 
-If the user provides a **local path** or **GitHub URL** to their skill, follow the resolution order in [BRANDING.md → Resolving an Artifact Source](../../BRANDING.md#resolving-an-artifact-source-path-or-github-url). Then extract:
+If the user provides a **local path** or **GitHub URL** to their skill, follow the resolution order in [BRANDING.md → Resolving an Artifact Source](BRANDING.md#resolving-an-artifact-source-path-or-github-url). Then extract:
 
 - `name` and `description` from the YAML frontmatter of `SKILL.md` (or `skill.md`, `Skill.md`).
 - Additional context from the README at the skill folder and at the repo root, if present. Skim for what the skill produces, example inputs/outputs, target audience, capability highlights — sharpens illustration, tagline, and pill suggestions.
@@ -51,7 +51,7 @@ If the user provides assets without explicit instructions, run **Handling User-P
 
 ## Required Assets
 
-Three assets per listing. Dimensions, palette, and typography are **locked** (see [BRANDING.md](../../BRANDING.md) and [DESIGN.md](DESIGN.md)). The composition inside each frame is **proposed and iterated with the user**.
+Three assets per listing. Dimensions, palette, and typography are **locked** (see [BRANDING.md](BRANDING.md) and [DESIGN.md](DESIGN.md)). The composition inside each frame is **proposed and iterated with the user**.
 
 | Asset     | Dimensions | Aspect | Where it appears                              |
 | --------- | ---------- | ------ | --------------------------------------------- |
@@ -65,7 +65,7 @@ All three share one illustration concept and the same accent direction.
 
 This is an **interactive process**. Do not silently generate.
 
-0. **Preflight check** — run [BRANDING.md → Preflight](../../BRANDING.md#preflight-check) first. Verify `node`, `npm`, and `git` are available. If any are missing, stop and ask the user to install them. Do not proceed until all three are confirmed.
+0. **Preflight check** — run [BRANDING.md → Preflight](BRANDING.md#preflight-check) first. Verify `node`, `npm`, and `git` are available. If any are missing, stop and ask the user to install them. Do not proceed until all three are confirmed.
 1. **Confirm essentials.** Verify the skill **name** and **description**. If the user supplied a local path or GitHub URL to the skill, use **Auto-extracting from a Skill Source** above to read the frontmatter and confirm back. Otherwise ask for whichever is missing.
 2. **Acknowledge user direction.** If the user gave explicit composition instructions or reference assets, base the proposal on those. If they gave assets without instructions, run **Handling User-Provided Assets** first.
 3. **Propose a composition** drawing on the name, description, and any references:
