@@ -85,7 +85,7 @@ This is an **interactive process**. Do not silently generate.
    - The **accent direction** within the marketplace palette.
 4. **Iterate with the user.** Share the proposal, take feedback, refine. Repeat until approved.
 5. **Generate all three assets** following [DESIGN.md](DESIGN.md). Generate in order **icon → banner → thumbnail** — the icon has the strictest readability constraint and settles the illustration first.
-6. **Run the Quality Checks** in [DESIGN.md](DESIGN.md) before handing back.
+6. **Visually verify each rendered PNG.** Use the `Read` tool to open each output PNG and inspect it directly. Do not trust the HTML source alone — collision, text-wrapping, and overflow bugs only appear in the rendered output. Run the full Quality Checks in [DESIGN.md](DESIGN.md). If any check fails, fix the HTML, re-render the affected asset, and re-verify before delivering.
 
 ## Handling User-Provided Assets
 

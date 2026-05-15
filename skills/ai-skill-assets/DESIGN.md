@@ -65,18 +65,67 @@ The thumbnail is the same composition family as the banner, reframed for a 3:2 c
 
 ## Illustration Style
 
-- Subject: a **white glassmorphic card** representing the skill's output (document, code file, chart, form, list, etc.). The card sits at a slight angle or is gently elevated with a soft shadow.
-- Surface details inside the card: simple geometric placeholder content — a colored title bar (use the indigo→purple gradient `#6366F1 → #7C3AED`), light grey body lines, numbered or bulleted list rows. Keep it abstract; never render real text.
-- Sparkles: 4-point sparkle shape, purple, with a soft glow. One large sparkle + 1–2 small ones, clustered to one side of the card.
+### Deriving the concept
+
+**Do not default to a generic document card.** Every skill on the marketplace must have a **visually distinct illustration** that reflects what this specific skill does — not a recycled template from another skill.
+
+Before drawing anything, work through these three questions:
+
+1. **What does the skill produce?** Name the concrete output — a ZIP file, a how-to document, a checklist report, a running deployment, a test summary, a wired connector. If the output has a visual form, that form is the illustration subject.
+2. **What does the skill operate on?** If the output isn't visual, think about what the skill *acts on* — source code, a running app, an API endpoint, a WaveMaker page. That subject becomes the illustration.
+3. **What is the one shape a user would draw on a whiteboard to explain this skill?** That shape is your illustration.
+
+Translate the answer into a **white rounded card** containing abstract geometric placeholder content — colored bars, line stubs, icon shapes, progress indicators, node-and-edge diagrams, whatever fits. The card surface keeps the glassmorphic finish; the *content inside* is what makes each skill recognisable.
+
+A few worked examples (for reference only — do not treat as an exhaustive lookup):
+
+- Guide/doc skill → document card with a gradient title bar and numbered step rows
+- Code scaffolding skill → code-editor pane with monospace line stubs and a cursor dot
+- Packaging/ZIP skill → folder or box shape with a gradient seal and an export arrow
+- Audit/review skill → checklist card with check/cross row indicators and a shield badge
+- Connector skill → two nodes linked by a cable or arrow
+- CLI/deployment skill → terminal card with a prompt line and progress bar stubs
+
+If none of these fit, invent the right shape from first principles using the three questions above. A skill that doesn't match any familiar pattern should get a *novel* illustration, not the closest-matching template.
+
+When the skill clearly spans two concepts (e.g. security + refactor), compose a hybrid — two overlapping cards, or a primary card with a secondary badge.
+
+### Rendering rules
+
+- The subject sits on (or is itself) a **white rounded card** with soft drop shadow, gently elevated.
+- Interior detail is **abstract geometric placeholders** — colored bars, line stubs, icon shapes. Never real text.
+- Keep color to the indigo→purple gradient (`#6366F1 → #7C3AED`) for highlights and `#D1D5DB` for neutral lines. A single accent color is allowed if the concept requires it (e.g. green on a test-runner card), but keep it muted.
+- **Sparkles**: 4-point sparkle shape, purple, with a soft glow. One large + 1–2 small, clustered at one corner of the card.
 - Avoid: hard edges, harsh shadows, vivid colors, stock-art look.
 
 ## Quality Checks
 
-- [ ] Same illustration across icon, banner, thumbnail.
+Run these **after rendering each asset**. Open each PNG with the `Read` tool and visually inspect before reporting done. Do not rely solely on the HTML source — layout bugs only appear in the rendered output.
+
+### Layout — thumbnail (1200×800)
+
+- [ ] Text block (left side) and illustration (top-right) do not overlap. Illustration stays within the right ~38% of the inner card; text stays within the left ~62%.
+- [ ] Headline fits on a single line — no wrapping. If it wraps, reduce font-size (try 56px, then 48px) and re-render.
+- [ ] Sub-headline fits on a single line. If it wraps, shorten the copy.
+- [ ] Capability pills do not overflow or touch the illustration.
+- [ ] WaveMaker lockup visible at bottom-left of inner card.
+
+### Layout — banner (1920×600)
+
+- [ ] Text block (left ~55%) and illustration (right ~40%) do not overlap.
+- [ ] Headline fits on a single line. If it wraps at 118px, reduce to 96px then 80px.
+- [ ] Bottom-left ~25% is empty / background-only (for icon overlay).
+
+### Content
+
+- [ ] Same illustration concept across icon, banner, thumbnail.
+- [ ] Illustration concept matches skill purpose (see table above). If this skill is not about guides/docs, the illustration must not be a plain document card with lines.
 - [ ] Headline text identical between banner and thumbnail.
-- [ ] Banner bottom-left ~25% is empty / background-only (for icon overlay).
 - [ ] AI SKILL pill uses indigo gradient on both banner and thumbnail.
 - [ ] Sub-headline color is `#725CF7`.
 - [ ] Headline font is Inter 800; everything else is DM Sans.
+- [ ] Marketplace logo is sharp — it was referenced by file path, not base64-encoded.
 - [ ] Icon reads at 32×32.
 - [ ] Dimensions exact: 512×512, 1920×600, 1200×800.
+
+**If any check fails**: fix the HTML, re-render the affected asset(s), and re-verify before delivering.

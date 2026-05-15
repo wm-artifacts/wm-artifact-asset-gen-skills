@@ -52,8 +52,8 @@ Weights: 800 (display headlines), 700 (sub-headlines, pills, wordmark), 500 (sub
 - **Lockup wordmark**: "WaveMaker Marketplace".
 - **In prose**: "WaveMaker", e.g. "How-To docs for any WaveMaker feature."
 - If an older exemplar uses a different capitalization, it is wrong — do not propagate it.
-- **Marketplace mark** (purple "M" like design in a rounded purple square): **use the provided file** at [`assets/marketplace-logo.png`](assets/marketplace-logo.png). Embed it directly in lockups. **Do not redraw it in SVG, do not approximate it with HTML/CSS, do not generate it.**
-- **WaveMaker wave mark** (blue/teal wave): **use the provided file** at [`assets/wm-logo.svg`](assets/wm-logo.svg). Used in **Connector banners** as the right-side "connects to WaveMaker" symbol. Not used on AI Skill assets. Same rule: embed directly, never redraw.
+- **Marketplace mark** (purple "M" like design in a rounded purple square): **use the provided file** at [`assets/marketplace-logo.png`](assets/marketplace-logo.png). Reference it by relative path in HTML (`../assets/marketplace-logo.png` from the `build/` folder — this resolves correctly when using `page.goto('file://...')`). **Do not base64-encode it — binary files are corrupted during read→encode and will produce a broken/blurry logo in the rendered PNG.** Do not redraw it in SVG, do not approximate it with HTML/CSS, do not generate it.
+- **WaveMaker wave mark** (blue/teal wave): **use the provided file** at [`assets/wm-logo.svg`](assets/wm-logo.svg). Used in **Connector banners** as the right-side "connects to WaveMaker" symbol. Not used on AI Skill assets. Same rule: reference by relative path, never redraw.
 - **Lockup pattern**: marketplace mark + wordmark on a single horizontal line. Optional sub-label below the wordmark in muted cool gray (e.g. "AI Skills · Guides", "Connectors").
 
 ## Tone of Voice
@@ -151,8 +151,7 @@ This approach is **mandatory regardless of the model's own capabilities**. Even 
 3. `npx playwright install chromium` — downloads ~100 MB the first time, cached for subsequent runs.
 4. A `render.mjs` that:
    - Imports `{ chromium }` from `playwright`.
-   - Loads the asset HTML (each asset is a small standalone HTML file referencing the shared SVG illustration).
-   - `await page.setContent(html, { waitUntil: 'networkidle' })` so web fonts finish loading.
+   - Loads each HTML file via `await page.goto('file://' + absolutePath, { waitUntil: 'networkidle' })` — **do not use `page.setContent()`**, because `setContent` has no base URL and breaks relative asset references (the logo path won't resolve).
    - Screenshots at the target viewport with `deviceScaleFactor: 1` (exact-dimension exports — do not use 2x and downscale).
    - Writes each PNG to the output directory.
 
